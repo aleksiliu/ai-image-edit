@@ -1,13 +1,21 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function useImageEditor() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [editedImage, setEditedImage] = useState<string | null>(null);
 
+  useEffect(() => {
+    const savedImage = localStorage.getItem('uploadedImage');
+    if (savedImage) {
+      setUploadedImage(savedImage);
+    }
+  }, []);
+
   const handleImageUpload = (imageDataUrl: string) => {
     setUploadedImage(imageDataUrl);
+    localStorage.setItem('uploadedImage', imageDataUrl);
   };
 
   const handleApplyEdits = () => {
@@ -18,6 +26,7 @@ export function useImageEditor() {
   const resetUpload = () => {
     setUploadedImage(null);
     setEditedImage(null);
+    localStorage.removeItem('uploadedImage');
   };
 
   return {
