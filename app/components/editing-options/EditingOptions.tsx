@@ -14,7 +14,7 @@ interface EditingOptionsProps {
 }
 export function EditingOptions({ onApplyEdits }: EditingOptionsProps) {
   return (
-    <div className="sticky bottom-4 center-0 bg-white rounded-lg shadow-lg">
+    <div className="sticky bottom-6 center-0 bg-white rounded-lg shadow-lg">
       <Menubar className="py-6">
         <MenubarMenu>
           <MenubarTrigger className="text-black hover:text-gray-700">
