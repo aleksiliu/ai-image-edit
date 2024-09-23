@@ -12,8 +12,8 @@ export default function Home() {
   const { uploadedImage, editedImage, handleImageUpload, handleApplyEdits, resetUpload, isLoading} = useImageEditor();
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
-      <main className="flex-grow container mx-auto p-4">
+    <div className="flex flex-col h-screen bg-gray-900 text-gray-100 overflow-hidden">
+      <main className="flex-grow container mx-auto">
         <div className="flex flex-col items-center">
           <Suspense fallback={<div>Loading...</div>}>
             <ImageUpload 

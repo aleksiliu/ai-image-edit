@@ -5,7 +5,6 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
   MenubarTrigger,
 } from "../ui/menubar"
 import { Upload } from "lucide-react"
@@ -16,7 +15,7 @@ interface EditingOptionsProps {
 export function EditingOptions({ onApplyEdits }: EditingOptionsProps) {
   return (
     <div className="sticky bottom-4 center-0 bg-white rounded-lg shadow-lg">
-      <Menubar>
+      <Menubar className="py-6">
         <MenubarMenu>
           <MenubarTrigger className="text-black hover:text-gray-700">
             <Upload className="mr-2 h-4 w-4" /> Upscale
@@ -27,7 +26,6 @@ export function EditingOptions({ onApplyEdits }: EditingOptionsProps) {
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
-        <MenubarSeparator />
         <MenubarMenu>
           <MenubarTrigger className="text-black hover:text-gray-700">
             <Upload className="mr-2 h-4 w-4" /> Remove Background
