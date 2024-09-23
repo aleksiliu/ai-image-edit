@@ -24,7 +24,7 @@ export default function Home() {
             {uploadedImage && (
               <>
                 <div className="absolute top-4 left-4 z-20">
-                  <Button variant="outline" className="bg-gray-700 text-white border-gray-600 hover:bg-gray-600" onClick={resetUpload}>
+                  <Button variant="outline" className="bg-gray-700 text-white border-gray-600" onClick={resetUpload}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Upload Different Image
                   </Button>
                 </div>

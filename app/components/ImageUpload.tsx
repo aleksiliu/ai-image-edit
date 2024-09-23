@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Upload, FileImage } from "lucide-react"
+import { Upload, FileImage, ZoomIn, ZoomOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 
 interface ImageUploadProps {
-  onImageUpload: (imageDataUrl: string) => void
+  onImageUpload: (file: File) => void
   uploadedImage?: string | null
   onReset?: () => void
 }
@@ -14,22 +14,13 @@ interface ImageUploadProps {
 export function ImageUpload({ onImageUpload, uploadedImage, onReset }: ImageUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
 
-  const handleImageUpload = useCallback((file: File) => {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      if (typeof e.target?.result === 'string') {
-        onImageUpload(e.target.result)
-      }
-    }
-    reader.readAsDataURL(file)
-  }, [onImageUpload])
-
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      handleImageUpload(file)
+      console.log("File selected:", file);
+      onImageUpload(file)
     }
-  }, [handleImageUpload])
+  }, [onImageUpload])
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -54,15 +45,26 @@ export function ImageUpload({ onImageUpload, uploadedImage, onReset }: ImageUplo
     setIsDragging(false)
     const file = e.dataTransfer.files[0]
     if (file) {
-      handleImageUpload(file)
+      console.log("File dropped:", file);
+      onImageUpload(file)
     }
   }
+
 
   if (uploadedImage) {
     return (
       <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-900">
         <div className="relative w-full max-w-md h-auto">
-          <Image src={uploadedImage} alt="Uploaded" layout="responsive" width={1000} height={600} className="rounded" />
+          <div className="relative overflow-hidden">
+            <Image 
+              src={uploadedImage} 
+              alt="Uploaded" 
+              layout="responsive" 
+              width={1000} 
+              height={600} 
+              className="rounded" 
+            />
+          </div>
         </div>
       </div>
     )
