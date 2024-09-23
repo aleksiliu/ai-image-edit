@@ -3,13 +3,34 @@
 import { Suspense } from 'react';
 import { ImageUpload } from './components/image-upload/ImageUpload';
 import { EditingOptions } from './components/editing-options/EditingOptions';
-import { ResultDisplay } from './components/result-display/ResultDisplay';
 import { useImageEditor } from './hooks/useImageEditor';
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 export default function Home() {
-  const { uploadedImage, editedImage, handleImageUpload, handleApplyEdits, resetUpload, isLoading} = useImageEditor();
+  const { uploadedImage, editedImage, handleImageUpload, handleUpscale, resetUpload, isLoading} = useImageEditor();
+
+  const handleDownload = () => {
+    if (!editedImage) {
+      console.log("No edited image available for download.");
+      return;
+    }
+    console.log("Starting download of edited image.");
+    fetch(editedImage)
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'upscaled-image.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        console.log("Download completed.");
+      })
+      .catch(error => console.error("Error downloading the image:", error));
+  };
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-gray-100 overflow-hidden">
@@ -29,8 +50,11 @@ export default function Home() {
                     <ArrowLeft className="mr-2 h-4 w-4" /> Upload Different Image
                   </Button>
                 </div>
-                <EditingOptions onApplyEdits={handleApplyEdits} />
-                <ResultDisplay editedImage={editedImage} />
+                <EditingOptions 
+                  onUpscale={handleUpscale} 
+                  onDownload={handleDownload} 
+                  editedImage={editedImage} 
+                />
               </>
             )}
           </Suspense>

@@ -1,16 +1,23 @@
 import { useState, useEffect } from 'react';
 import { uploadImage } from '../api/uploadImageStorage';
+import { upscaleImage } from '../api/upscaleImage';
 
 export function useImageEditor() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [editedImage, setEditedImage] = useState<string | null>(null);
+  const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const savedImage = localStorage.getItem('uploadedImage');
-    if (savedImage) {
-      console.log("Loaded saved image from localStorage:", savedImage);
-      setUploadedImage(savedImage);
+    const savedEditedImage = localStorage.getItem('editedImage');
+    const savedUploadedImage = localStorage.getItem('uploadedImage');
+    if (savedEditedImage) {
+      console.log("Loaded edited image from localStorage:", savedEditedImage);
+      setEditedImage(savedEditedImage);
+      setUploadedImage(savedEditedImage);
+    } else if (savedUploadedImage) {
+      console.log("Loaded uploaded image from localStorage:", savedUploadedImage);
+      setUploadedImage(savedUploadedImage);
     }
   }, []);
 
@@ -20,6 +27,7 @@ export function useImageEditor() {
     try {
       const imageUrl = await uploadImage(file);
       setUploadedImage(imageUrl);
+      setOriginalImage(imageUrl);
       localStorage.setItem('uploadedImage', imageUrl);
       console.log("Image URL saved:", imageUrl);
     } catch (error) {
@@ -29,11 +37,21 @@ export function useImageEditor() {
     }
   };
 
-  const handleApplyEdits = () => {
-    console.log("Applying edits to image...");
-    // Simulating image editing process
-    setEditedImage(uploadedImage);
-    console.log("Edits applied, edited image URL:", uploadedImage);
+  const handleUpscale = async () => {
+    if (!uploadedImage) return;
+    console.log("Upscaling image...");
+    setIsLoading(true);
+    try {
+      const upscaledImageUrl = await upscaleImage(uploadedImage);
+      setUploadedImage(upscaledImageUrl); 
+      setEditedImage(upscaledImageUrl); 
+      localStorage.setItem('uploadedImage', upscaledImageUrl);
+      localStorage.setItem('editedImage', upscaledImageUrl);
+    } catch (error) {
+      console.error("Error upscaling image:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const resetUpload = () => {
@@ -41,6 +59,7 @@ export function useImageEditor() {
     setUploadedImage(null);
     setEditedImage(null);
     localStorage.removeItem('uploadedImage');
+    localStorage.removeItem('editedImage');
     console.log("Upload reset, localStorage cleared.");
   };
 
@@ -48,8 +67,9 @@ export function useImageEditor() {
     uploadedImage,
     editedImage,
     isLoading,
+    originalImage,
     handleImageUpload,
-    handleApplyEdits,
+    handleUpscale,
     resetUpload,
   };
 }
