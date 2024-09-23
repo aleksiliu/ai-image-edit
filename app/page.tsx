@@ -1,46 +1,40 @@
 "use client"
 
-import { useState } from "react"
-import ImageUpload from "./components/ImageUpload"
-import EditingOptions from "./components/EditingOptions"
-import ResultDisplay from "./components/ResultDisplay"
-
+import { Suspense } from 'react';
+import { ImageUpload } from './components/ImageUpload';
+import { EditingOptions } from './components/EditingOptions';
+import { ResultDisplay } from './components/ResultDisplay';
+import { useImageEditor } from './hooks/useImageEditor';
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
-  const [editedImage, setEditedImage] = useState<string | null>(null)
-
-  const handleImageUpload = (imageDataUrl: string) => {
-    setUploadedImage(imageDataUrl)
-  }
-
-  const handleApplyEdits = () => {
-    // Simulating image editing process
-    setEditedImage(uploadedImage)
-  }
-
-  const resetUpload = () => {
-    setUploadedImage(null)
-    setEditedImage(null)
-  }
-
-  if (!uploadedImage) {
-    return <ImageUpload onImageUpload={handleImageUpload} />
-  }
+  const { uploadedImage, editedImage, handleImageUpload, handleApplyEdits, resetUpload } = useImageEditor();
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
       <main className="flex-grow container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <ImageUpload 
-            uploadedImage={uploadedImage} 
-            onImageUpload={handleImageUpload} 
-            onReset={resetUpload} 
-          />
-          <EditingOptions onApplyEdits={handleApplyEdits} />
-          <ResultDisplay editedImage={editedImage} />
+        <div className="flex flex-col items-center">
+          <Suspense fallback={<div>Loading...</div>}>
+            <ImageUpload 
+              uploadedImage={uploadedImage} 
+              onImageUpload={handleImageUpload} 
+              onReset={resetUpload} 
+            />
+            {uploadedImage && (
+              <>
+                <div className="absolute top-4 left-4 z-20">
+                  <Button variant="outline" className="bg-gray-700 text-white border-gray-600 hover:bg-gray-600" onClick={resetUpload}>
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Upload Different Image
+                  </Button>
+                </div>
+                <EditingOptions onApplyEdits={handleApplyEdits} />
+                <ResultDisplay editedImage={editedImage} />
+              </>
+            )}
+          </Suspense>
         </div>
       </main>
     </div>
-  )
+  );
 }
