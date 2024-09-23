@@ -13,13 +13,16 @@ interface UpscaleResult {
     width: number;
     height: number;
   };
+  timings: {
+    inference: number;
+  };
 }
 
 export async function upscaleImage(imageUrl: string): Promise<string> {
   try {
     console.log('Starting image upscaling process for:', imageUrl);
 
-    const result = await fal.subscribe("fal-ai/clarity-upscaler", {
+    const result = await fal.subscribe("fal-ai/aura-sr", {
       input: {
         image_url: imageUrl,
       },
