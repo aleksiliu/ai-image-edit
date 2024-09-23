@@ -63,7 +63,7 @@ export function ImageUpload({ onImageUpload, uploadedImage, onReset, isLoading }
   if (uploadedImage) {
     return (
       <div className="relative flex flex-col items-center justify-center h-screen bg-gray-900 overflow-auto">
-        <div className="relative w-full max-w-4xl h-auto p-4">
+        <div className="relative w-full max-w-4xl h-auto">
           <div className="relative overflow-hidden rounded-lg shadow-[0_0_15px_5px_rgba(255,255,255,0.05)]">
             <Image 
               src={uploadedImage} 
