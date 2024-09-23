@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { uploadImage } from '../api/auraSr';
+import { uploadImage } from '../api/uploadImageStorage';
 
 export function useImageEditor() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
