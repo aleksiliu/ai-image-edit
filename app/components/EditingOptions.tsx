@@ -8,24 +8,30 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar"
+import { Upload } from "lucide-react"
 
 interface EditingOptionsProps {
   onApplyEdits: () => void
 }
-
 export function EditingOptions({ onApplyEdits }: EditingOptionsProps) {
   return (
-    <div className="sticky bottom-4 center-0 bg-gray-800 p-4 rounded-lg shadow-lg z-20">
-      <h2 className="text-xl font-semibold mb-4 text-gray-100">Editing Options</h2>
+    <div className="sticky bottom-4 center-0 bg-white rounded-lg shadow-lg z-20">
       <Menubar>
         <MenubarMenu>
-          <MenubarTrigger className="w-full bg-gray-700 text-white border-gray-600 hover:bg-gray-600">
-            Edit Options
+          <MenubarTrigger className="text-black">
+            <Upload className="mr-2 h-4 w-4" /> Upscale
           </MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem onSelect={onApplyEdits}>Apply Edits</MenubarItem>
-            <MenubarSeparator />
-            {/* Add more menu items for different editing options */}
+          <MenubarContent className="bg-white text-black">
+            <MenubarItem onSelect={() => console.log('Upscale selected')} className="text-black">Upscale</MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+        <MenubarSeparator />
+        <MenubarMenu>
+          <MenubarTrigger className="text-black">
+            <Upload className="mr-2 h-4 w-4" /> Remove Background
+          </MenubarTrigger>
+          <MenubarContent className="bg-white text-black">
+            <MenubarItem onSelect={() => console.log('Remove background selected')} className="text-black">Remove Background</MenubarItem>
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
