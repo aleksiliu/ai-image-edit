@@ -26,7 +26,10 @@ export function EditingOptions({ onUpscale, onDownload, editedImage }: EditingOp
           </MenubarTrigger>
           <MenubarContent className="bg-white text-black">
             <MenubarItem onSelect={onUpscale} className="text-black">
-              Upscale
+              4x Upscale 
+            </MenubarItem>
+            <MenubarItem className="text-black">
+              2x Upscale 
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
