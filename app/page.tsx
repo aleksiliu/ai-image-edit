@@ -9,7 +9,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
-  const { uploadedImage, editedImage, handleImageUpload, handleApplyEdits, resetUpload } = useImageEditor();
+  const { uploadedImage, editedImage, handleImageUpload, handleApplyEdits, resetUpload, isLoading} = useImageEditor();
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-900 text-gray-100">
@@ -20,6 +20,7 @@ export default function Home() {
               uploadedImage={uploadedImage} 
               onImageUpload={handleImageUpload} 
               onReset={resetUpload} 
+              isLoading={isLoading}
             />
             {uploadedImage && (
               <>

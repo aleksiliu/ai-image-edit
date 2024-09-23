@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Upload, FileImage, ZoomIn, ZoomOut } from "lucide-react"
+import { Upload, FileImage, ZoomIn, ZoomOut, Loader } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 
@@ -9,9 +9,10 @@ interface ImageUploadProps {
   onImageUpload: (file: File) => void
   uploadedImage?: string | null
   onReset?: () => void
+  isLoading: boolean
 }
 
-export function ImageUpload({ onImageUpload, uploadedImage, onReset }: ImageUploadProps) {
+export function ImageUpload({ onImageUpload, uploadedImage, onReset, isLoading }: ImageUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
 
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +51,15 @@ export function ImageUpload({ onImageUpload, uploadedImage, onReset }: ImageUplo
     }
   }
 
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
+        <Loader className="animate-spin h-24 w-24 text-white" />
+        <p className="text-xl text-gray-400 mt-4">Uploading...</p>
+      </div>
+    )
+  }
 
   if (uploadedImage) {
     return (

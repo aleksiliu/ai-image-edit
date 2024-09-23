@@ -4,6 +4,7 @@ import { uploadImage } from '../api/auraSr';
 export function useImageEditor() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [editedImage, setEditedImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const savedImage = localStorage.getItem('uploadedImage');
@@ -15,6 +16,7 @@ export function useImageEditor() {
 
   const handleImageUpload = async (file: File) => {
     console.log("Uploading image...");
+    setIsLoading(true);
     try {
       const imageUrl = await uploadImage(file);
       setUploadedImage(imageUrl);
@@ -22,6 +24,8 @@ export function useImageEditor() {
       console.log("Image URL saved:", imageUrl);
     } catch (error) {
       console.error("Error uploading image:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -43,6 +47,7 @@ export function useImageEditor() {
   return {
     uploadedImage,
     editedImage,
+    isLoading,
     handleImageUpload,
     handleApplyEdits,
     resetUpload,
