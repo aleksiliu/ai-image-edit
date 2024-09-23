@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Upload, FileImage, ZoomIn, ZoomOut, Loader } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Upload, FileImage, LoaderCircle } from "lucide-react"
+import { Button } from "@/app/components/ui/button"
 import Image from 'next/image'
 
 interface ImageUploadProps {
@@ -55,7 +55,7 @@ export function ImageUpload({ onImageUpload, uploadedImage, onReset, isLoading }
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-        <Loader className="animate-spin h-24 w-24 text-white" />
+        <LoaderCircle className="animate-spin h-24 w-24 text-white" />
         <p className="text-xl text-gray-400 mt-4">Uploading...</p>
       </div>
     )

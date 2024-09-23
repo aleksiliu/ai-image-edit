@@ -1,7 +1,7 @@
 "use client"
 
 import { Image as ImageIcon, Download } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/app/components/ui/button"
 
 interface ResultDisplayProps {
   editedImage: string | null

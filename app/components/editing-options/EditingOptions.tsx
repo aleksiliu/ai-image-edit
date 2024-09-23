@@ -7,7 +7,7 @@ import {
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
-} from "@/components/ui/menubar"
+} from "../ui/menubar"
 import { Upload } from "lucide-react"
 
 interface EditingOptionsProps {

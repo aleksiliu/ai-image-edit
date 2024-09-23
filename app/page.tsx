@@ -1,12 +1,12 @@
 "use client"
 
 import { Suspense } from 'react';
-import { ImageUpload } from './components/ImageUpload';
-import { EditingOptions } from './components/EditingOptions';
-import { ResultDisplay } from './components/ResultDisplay';
+import { ImageUpload } from './components/image-upload/ImageUpload';
+import { EditingOptions } from './components/editing-options/EditingOptions';
+import { ResultDisplay } from './components/result-display/ResultDisplay';
 import { useImageEditor } from './hooks/useImageEditor';
 import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 
 export default function Home() {
   const { uploadedImage, editedImage, handleImageUpload, handleApplyEdits, resetUpload, isLoading} = useImageEditor();
