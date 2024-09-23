@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "../ui/button"
 import {
   Menubar,
   MenubarContent,
@@ -40,11 +41,9 @@ export function EditingOptions({ onUpscale, onDownload, editedImage }: EditingOp
           </MenubarContent>
         </MenubarMenu>
         {editedImage && (
-          <MenubarMenu>
-            <MenubarTrigger onClick={onDownload} className="text-white bg-purple-500 py-2">
+            <Button onClick={onDownload} className="text-white bg-purple-500 hover:bg-purple-600 py-2">
               <Download className="mr-2 h-4 w-4" /> Download Image
-            </MenubarTrigger>
-          </MenubarMenu>
+            </Button>
         )}
       </Menubar>
     </div>
