@@ -33,11 +33,16 @@ export function EditingOptions({
         <MenubarMenu>
           <MenubarTrigger className="text-black hover:text-gray-700" disabled={isUpscaling}>
             {isUpscaling ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <span>Upscaling...</span>
+              </>
             ) : (
-              <Scaling className="mr-2 h-4 w-4" />
+              <>
+                <Scaling className="mr-2 h-4 w-4" />
+                Upscale
+              </>
             )}
-            Upscale
           </MenubarTrigger>
           <MenubarContent className="bg-white text-black">
             <MenubarItem onSelect={onUpscale} className="text-black" disabled={isUpscaling}>
@@ -51,11 +56,16 @@ export function EditingOptions({
         <MenubarMenu>
           <MenubarTrigger className="text-black hover:text-gray-700" disabled={isRemovingBackground}>
             {isRemovingBackground ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <span>Removing Background...</span>
+              </>
             ) : (
-              <ImageOff className="mr-2 h-4 w-4" />
+              <>
+                <ImageOff className="mr-2 h-4 w-4" />
+                Remove Background
+              </>
             )}
-            Remove Background
           </MenubarTrigger>
           <MenubarContent className="bg-white text-black">
           <MenubarItem onSelect={onRemoveBackground} className="text-black" disabled={isRemovingBackground}>
