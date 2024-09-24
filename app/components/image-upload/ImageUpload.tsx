@@ -4,6 +4,7 @@ import { useState, useCallback } from "react"
 import { Upload, FileImage, LoaderCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/app/components/ui/button"
 import Image from 'next/image'
+import { Badge } from "@/app/components/ui/badge"
 
 interface ImageUploadProps {
   onImageUpload: (file: File) => void
@@ -12,6 +13,8 @@ interface ImageUploadProps {
   isLoading: boolean
   isUpscaling: boolean
   isRemovingBackground: boolean
+  isUpscaled: boolean
+  isBackgroundRemoved: boolean
 }
 
 export function ImageUpload({ 
@@ -20,7 +23,9 @@ export function ImageUpload({
   onReset, 
   isLoading, 
   isUpscaling, 
-  isRemovingBackground 
+  isRemovingBackground, 
+  isUpscaled, 
+  isBackgroundRemoved 
 }: ImageUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -94,6 +99,18 @@ export function ImageUpload({
               height={600} 
               className="rounded object-contain w-full h-auto" 
             />
+            <div className="absolute top-2 right-2 flex gap-2">
+              {isUpscaled && (
+                <Badge className="bg-white bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
+                  Upscaled
+                </Badge>
+              )}
+              {isBackgroundRemoved && (
+                <Badge className="bg-white bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
+                  BG Removed
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -17,7 +17,9 @@ export default function Home() {
     resetUpload, 
     isLoading, 
     isUpscaling, 
-    isRemovingBackground 
+    isRemovingBackground,
+    isUpscaled,
+    isBackgroundRemoved
   } = useImageEditor();
 
   const handleDownload = () => {
@@ -54,6 +56,8 @@ export default function Home() {
               isLoading={isLoading}
               isUpscaling={isUpscaling}
               isRemovingBackground={isRemovingBackground}
+              isUpscaled={isUpscaled}
+              isBackgroundRemoved={isBackgroundRemoved}
             />
             {uploadedImage && (
               <>
