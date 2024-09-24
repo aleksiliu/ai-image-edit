@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Upload, FileImage, LoaderCircle } from "lucide-react"
+import { Upload, FileImage, LoaderCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/app/components/ui/button"
 import Image from 'next/image'
 
@@ -10,16 +10,35 @@ interface ImageUploadProps {
   uploadedImage?: string | null
   onReset?: () => void
   isLoading: boolean
+  isUpscaling: boolean
+  isRemovingBackground: boolean
 }
 
-export function ImageUpload({ onImageUpload, uploadedImage, onReset, isLoading }: ImageUploadProps) {
+export function ImageUpload({ 
+  onImageUpload, 
+  uploadedImage, 
+  onReset, 
+  isLoading, 
+  isUpscaling, 
+  isRemovingBackground 
+}: ImageUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const validateAndUploadFile = (file: File) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    if (!allowedTypes.includes(file.type)) {
+      setError('Unsupported file format. Please upload a JPEG, PNG, GIF, or WebP image.')
+      return
+    }
+    setError(null)
+    onImageUpload(file)
+  }
 
   const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      console.log("File selected:", file);
-      onImageUpload(file)
+      validateAndUploadFile(file)
     }
   }, [onImageUpload])
 
@@ -46,16 +65,19 @@ export function ImageUpload({ onImageUpload, uploadedImage, onReset, isLoading }
     setIsDragging(false)
     const file = e.dataTransfer.files[0]
     if (file) {
-      console.log("File dropped:", file);
-      onImageUpload(file)
+      validateAndUploadFile(file)
     }
   }
 
-  if (isLoading) {
+  if (isLoading || isUpscaling || isRemovingBackground) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
         <LoaderCircle className="animate-spin h-24 w-24 text-white" />
-        <p className="text-xl text-gray-400 mt-4">Uploading...</p>
+        <p className="text-xl text-gray-400 mt-4">
+          {isLoading && "Uploading..."}
+          {isUpscaling && "Scaling..."}
+          {isRemovingBackground && "Removing background..."}
+        </p>
       </div>
     )
   }
@@ -111,9 +133,15 @@ export function ImageUpload({ onImageUpload, uploadedImage, onReset, isLoading }
             type="file"
             id="fileInput"
             className="hidden"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/gif,image/webp"
             onChange={handleFileInput}
           />
+                    {error && (
+            <div className="mt-8 flex items-center justify-center text-red-500">
+              <AlertCircle className="mr-2 h-5 w-5" />
+              <p>{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

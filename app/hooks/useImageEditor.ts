@@ -8,6 +8,8 @@ export function useImageEditor() {
   const [editedImage, setEditedImage] = useState<string | null>(null);
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUpscaling, setIsUpscaling] = useState(false);
+  const [isRemovingBackground, setIsRemovingBackground] = useState(false);
 
   useEffect(() => {
     const savedEditedImage = localStorage.getItem('editedImage');
@@ -41,7 +43,7 @@ export function useImageEditor() {
   const handleUpscale = async () => {
     if (!uploadedImage) return;
     console.log("Upscaling image...");
-    setIsLoading(true);
+    setIsUpscaling(true);
     try {
       const upscaledImageUrl = await upscaleImage(uploadedImage);
       setUploadedImage(upscaledImageUrl); 
@@ -51,14 +53,14 @@ export function useImageEditor() {
     } catch (error) {
       console.error("Error upscaling image:", error);
     } finally {
-      setIsLoading(false);
+      setIsUpscaling(false);
     }
   };
 
   const handleRemoveBackground = async () => {
     if (!uploadedImage) return;
     console.log("Removing background...");
-    setIsLoading(true);
+    setIsRemovingBackground(true);
     try {
       const removedBgImageUrl = await removeBackground(uploadedImage);
       setUploadedImage(removedBgImageUrl);
@@ -68,7 +70,7 @@ export function useImageEditor() {
     } catch (error) {
       console.error("Error removing background:", error);
     } finally {
-      setIsLoading(false);
+      setIsRemovingBackground(false);
     }
   };
 
@@ -85,6 +87,8 @@ export function useImageEditor() {
     uploadedImage,
     editedImage,
     isLoading,
+    isUpscaling,
+    isRemovingBackground,
     originalImage,
     handleImageUpload,
     handleRemoveBackground,
