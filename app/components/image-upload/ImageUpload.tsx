@@ -3,7 +3,6 @@
 import { useState, useCallback } from "react"
 import { Upload, FileImage, LoaderCircle, AlertCircle } from "lucide-react"
 import { Button } from "@/app/components/ui/button"
-import Image from 'next/image'
 import { Badge } from "@/app/components/ui/badge"
 
 interface ImageUploadProps {
@@ -20,7 +19,6 @@ interface ImageUploadProps {
 export function ImageUpload({ 
   onImageUpload, 
   uploadedImage, 
-  onReset, 
   isLoading, 
   isUpscaling, 
   isRemovingBackground, 
@@ -89,28 +87,24 @@ export function ImageUpload({
 
   if (uploadedImage) {
     return (
-      <div className="relative flex flex-col items-center justify-center h-screen bg-gray-900 overflow-auto">
-        <div className="relative w-full max-w-4xl h-auto">
-          <div className="relative overflow-hidden rounded-lg shadow-[0_0_15px_5px_rgba(255,255,255,0.05)]">
-            <Image 
+      <div className="relative flex items-center justify-center min-h-screen bg-gray-900 px-4 sm:px-6 lg:px-8">
+        <div className="relative w-full max-w-6xl aspect-[4/3]">
+        <img 
               src={uploadedImage} 
               alt="Uploaded" 
-              width={1000} 
-              height={600} 
-              className="rounded object-contain w-full h-auto" 
+              className="w-full h-full object-contain rounded-lg"
             />
-            <div className="absolute top-2 right-2 flex gap-2">
-              {isUpscaled && (
-                <Badge className="bg-white bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
-                  Upscaled
-                </Badge>
-              )}
-              {isBackgroundRemoved && (
-                <Badge className="bg-white bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
-                  BG Removed
-                </Badge>
-              )}
-            </div>
+          <div className="absolute top-2 right-2 flex gap-2">
+            {isUpscaled && (
+              <Badge className="bg-white bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
+                Upscaled
+              </Badge>
+            )}
+            {isBackgroundRemoved && (
+              <Badge className="bg-white bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-500">
+                BG Removed
+              </Badge>
+            )}
           </div>
         </div>
       </div>
