@@ -70,7 +70,7 @@ export function EditingOptions({
             </>
           )}
         </Button>
-        {editedImage && (
+        {editedImage && !isUpscaling && !isRemovingBackground && (
             <Button onClick={onDownload} className="text-white bg-purple-500 hover:bg-purple-600 py-2">
               <Download className="mr-2 h-4 w-4" /> Download Image
             </Button>
