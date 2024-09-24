@@ -31,7 +31,7 @@ export function EditingOptions({
     <div className="sticky bottom-6 center-0 bg-white rounded-lg shadow-lg">
       <Menubar className="py-6">
         <MenubarMenu>
-          <MenubarTrigger className="text-black hover:text-gray-700" disabled={isUpscaling}>
+          <MenubarTrigger className="text-black hover:text-purple-400" disabled={isUpscaling}>
             {isUpscaling ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -56,7 +56,7 @@ export function EditingOptions({
         <Button 
           onClick={onRemoveBackground}
           disabled={isRemovingBackground}
-          className="text-black hover:text-gray-700 hover:bg-white bg-white"
+          className="text-black hover:text-purple-400 hover:bg-white bg-white"
         >
           {isRemovingBackground ? (
             <>

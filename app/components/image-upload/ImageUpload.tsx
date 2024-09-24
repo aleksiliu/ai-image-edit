@@ -126,13 +126,13 @@ export function ImageUpload({
         <div className="text-center p-8 rounded-lg z-10">
           {isDragging ? (
             <>
-              <FileImage className="mx-auto mb-4 h-24 w-24 text-gray-400" />
+              <FileImage className="mx-auto mb-4 h-16 w-16 text-gray-400" />
               <h1 className="text-4xl font-bold mb-4 text-white">Drop your image here</h1>
               <p className="text-xl text-gray-400 mb-8">Release to upload</p>
             </>
           ) : (
             <>
-              <Upload className="mx-auto mb-4 h-24 w-24 text-gray-400" />
+              <Upload className="mx-auto mb-4 h-16 w-16 text-gray-400" />
               <h1 className="text-4xl font-bold mb-4 text-white">Image Editing Suite</h1>
               <p className="text-xl text-gray-400 mb-8">Drop your image anywhere or click to upload</p>
               <Button size="lg" variant="outline" className="bg-gray-800 text-white border-gray-600" onClick={() => document.getElementById('fileInput')?.click()}>
