@@ -53,26 +53,23 @@ export function EditingOptions({
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger className="text-black hover:text-gray-700" disabled={isRemovingBackground}>
-            {isRemovingBackground ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                <span>Removing Background...</span>
-              </>
-            ) : (
-              <>
-                <ImageOff className="mr-2 h-4 w-4" />
-                Remove Background
-              </>
-            )}
-          </MenubarTrigger>
-          <MenubarContent className="bg-white text-black">
-          <MenubarItem onSelect={onRemoveBackground} className="text-black" disabled={isRemovingBackground}>
-              Remove Background
-            </MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
+        <Button 
+          onClick={onRemoveBackground}
+          disabled={isRemovingBackground}
+          className="text-black hover:text-gray-700 hover:bg-white bg-white"
+        >
+          {isRemovingBackground ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <span>Removing Background...</span>
+            </>
+          ) : (
+            <>
+              <ImageOff className="mr-2 h-4 w-4" />
+              <span>Remove Background</span>
+            </>
+          )}
+        </Button>
         {editedImage && (
             <Button onClick={onDownload} className="text-white bg-purple-500 hover:bg-purple-600 py-2">
               <Download className="mr-2 h-4 w-4" /> Download Image
