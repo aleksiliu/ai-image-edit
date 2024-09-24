@@ -1,8 +1,8 @@
-# Image Editing Suite
+# AI Image Edit
 
 ## Description
 
-Image Editing Suite is a powerful web application built with Next.js and TypeScript that allows users to upload, edit, and enhance images using AI-powered tools. The application offers features such as image upscaling and background removal.
+Wb application built with Next.js and TypeScript that allows users to upload, edit, and enhance images using AI-powered tools. The application offers features such as image upscaling and background removal.
 
 ## Features
 
