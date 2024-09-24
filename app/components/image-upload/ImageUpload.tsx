@@ -74,8 +74,8 @@ export function ImageUpload({
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
         <LoaderCircle className="animate-spin h-24 w-24 text-white" />
         <p className="text-xl text-gray-400 mt-4">
-          {isLoading && "Uploading..."}
-          {isUpscaling && "Scaling..."}
+          {isLoading && "Uploading image.."}
+          {isUpscaling && "Upscaling image..."}
           {isRemovingBackground && "Removing background..."}
         </p>
       </div>
