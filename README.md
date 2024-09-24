@@ -2,7 +2,7 @@
 
 ## Description
 
-Wb application built with Next.js and TypeScript that allows users to upload, edit, and enhance images using AI-powered tools. The application offers features such as image upscaling and background removal.
+Web application built with Next.js and TypeScript that allows users to upload, edit, and enhance images using AI-powered tools. The application offers features such as image upscaling and background removal.
 
 ## Features
 
