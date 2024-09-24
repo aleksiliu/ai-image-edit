@@ -12,11 +12,12 @@ import { Download, ImageOff, Scaling } from "lucide-react"
 
 interface EditingOptionsProps {
   onUpscale: () => void
+  onRemoveBackground: () => void
   onDownload: () => void
   editedImage: string | null
 }
 
-export function EditingOptions({ onUpscale, onDownload, editedImage }: EditingOptionsProps) {
+export function EditingOptions({ onUpscale, onDownload, editedImage, onRemoveBackground }: EditingOptionsProps) {
   return (
     <div className="sticky bottom-6 center-0 bg-white rounded-lg shadow-lg">
       <Menubar className="py-6">
@@ -38,7 +39,7 @@ export function EditingOptions({ onUpscale, onDownload, editedImage }: EditingOp
             <ImageOff className="mr-2 h-4 w-4" /> Remove Background
           </MenubarTrigger>
           <MenubarContent className="bg-white text-black">
-            <MenubarItem onSelect={() => console.log('Remove background selected')} className="text-black">
+          <MenubarItem onSelect={onRemoveBackground} className="text-black">
               Remove Background
             </MenubarItem>
           </MenubarContent>

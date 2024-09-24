@@ -8,7 +8,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 export default function Home() {
-  const { uploadedImage, editedImage, handleImageUpload, handleUpscale, resetUpload, isLoading} = useImageEditor();
+  const { uploadedImage, editedImage, handleImageUpload, handleRemoveBackground, handleUpscale, resetUpload, isLoading} = useImageEditor();
 
   const handleDownload = () => {
     if (!editedImage) {
@@ -52,6 +52,7 @@ export default function Home() {
                 </div>
                 <EditingOptions 
                   onUpscale={handleUpscale} 
+                  onRemoveBackground={handleRemoveBackground}
                   onDownload={handleDownload} 
                   editedImage={editedImage} 
                 />

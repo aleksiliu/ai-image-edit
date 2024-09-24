@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { uploadImage } from '../api/uploadImageStorage';
 import { upscaleImage } from '../api/upscaleImage';
+import { removeBackground } from '../api/removeBackground';
 
 export function useImageEditor() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -54,6 +55,23 @@ export function useImageEditor() {
     }
   };
 
+  const handleRemoveBackground = async () => {
+    if (!uploadedImage) return;
+    console.log("Removing background...");
+    setIsLoading(true);
+    try {
+      const removedBgImageUrl = await removeBackground(uploadedImage);
+      setUploadedImage(removedBgImageUrl);
+      setEditedImage(removedBgImageUrl);
+      localStorage.setItem('uploadedImage', removedBgImageUrl);
+      localStorage.setItem('editedImage', removedBgImageUrl);
+    } catch (error) {
+      console.error("Error removing background:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const resetUpload = () => {
     console.log("Resetting upload...");
     setUploadedImage(null);
@@ -69,6 +87,7 @@ export function useImageEditor() {
     isLoading,
     originalImage,
     handleImageUpload,
+    handleRemoveBackground,
     handleUpscale,
     resetUpload,
   };
