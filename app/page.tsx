@@ -25,10 +25,8 @@ export default function Home() {
 
   const handleDownload = () => {
     if (!editedImage) {
-      console.log("No edited image available for download.");
       return;
     }
-    console.log("Starting download of edited image.");
     fetch(editedImage)
       .then(response => response.blob())
       .then(blob => {
@@ -40,7 +38,6 @@ export default function Home() {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        console.log("Download completed.");
       })
       .catch(error => console.error("Error downloading the image:", error));
   };

@@ -12,7 +12,6 @@ interface RemoveBackgroundResult {
 
 export async function removeBackground(imageUrl: string): Promise<string> {
   try {
-    console.log('Starting background removal process for:', imageUrl);
 
     const result = await fal.subscribe("fal-ai/birefnet", {
       input: {
@@ -27,16 +26,16 @@ export async function removeBackground(imageUrl: string): Promise<string> {
       },
     }) as RemoveBackgroundResult;
 
-    console.log('Background removal result:', result);
+  
 
     if (!result || !result.image || !result.image.url) {
       throw new Error('Failed to remove background');
     }
 
-    console.log('Image URL with removed background:', result.image.url);
     return result.image.url;
+
   } catch (error) {
-    console.error('Error removing background:', error);
+
     throw new Error('Failed to remove background');
   }
 }

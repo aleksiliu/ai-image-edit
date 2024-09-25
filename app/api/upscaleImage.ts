@@ -20,7 +20,6 @@ interface UpscaleResult {
 
 export async function upscaleImage(imageUrl: string): Promise<string> {
   try {
-    console.log('Starting image upscaling process for:', imageUrl);
 
     const result = await fal.subscribe("fal-ai/aura-sr", {
       input: {
@@ -35,16 +34,14 @@ export async function upscaleImage(imageUrl: string): Promise<string> {
       },
     }) as UpscaleResult; // Type assertion here
 
-    console.log('Upscale result:', result);
 
     if (!result || !result.image || !result.image.url) {
       throw new Error('Failed to upscale image');
     }
 
-    console.log('Upscaled image URL:', result.image.url);
     return result.image.url;
   } catch (error) {
-    console.error('Error upscaling image:', error);
+
     throw new Error('Failed to upscale image');
   }
 }

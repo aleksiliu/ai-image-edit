@@ -18,24 +18,20 @@ export function useImageEditor() {
     const savedEditedImage = localStorage.getItem('editedImage');
     const savedUploadedImage = localStorage.getItem('uploadedImage');
     if (savedEditedImage) {
-      console.log("Loaded edited image from localStorage:", savedEditedImage);
       setEditedImage(savedEditedImage);
       setUploadedImage(savedEditedImage);
     } else if (savedUploadedImage) {
-      console.log("Loaded uploaded image from localStorage:", savedUploadedImage);
       setUploadedImage(savedUploadedImage);
     }
   }, []);
 
   const handleImageUpload = async (file: File) => {
-    console.log("Uploading image...");
     setIsLoading(true);
     try {
       const imageUrl = await uploadImage(file);
       setUploadedImage(imageUrl);
       setOriginalImage(imageUrl);
       localStorage.setItem('uploadedImage', imageUrl);
-      console.log("Image URL saved:", imageUrl);
     } catch (error) {
       setErrorMessage("Failed to upload image. Please try again.");
     } finally {
@@ -45,7 +41,6 @@ export function useImageEditor() {
 
   const handleUpscale = async () => {
     if (!uploadedImage) return;
-    console.log("Upscaling image...");
     setIsUpscaling(true);
     try {
       const upscaledImageUrl = await upscaleImage(uploadedImage);
@@ -63,7 +58,6 @@ export function useImageEditor() {
 
   const handleRemoveBackground = async () => {
     if (!uploadedImage) return;
-    console.log("Removing background...");
     setIsRemovingBackground(true);
     try {
       const removedBgImageUrl = await removeBackground(uploadedImage);
@@ -80,7 +74,6 @@ export function useImageEditor() {
   };
 
   const resetUpload = () => {
-    console.log("Resetting upload...");
     setUploadedImage(null);
     setEditedImage(null);
     localStorage.removeItem('uploadedImage');
