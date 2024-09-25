@@ -4,6 +4,8 @@
 
 Web application built with Next.js and TypeScript that allows users to upload, edit, and enhance images using AI-powered tools. The application offers features such as image upscaling and background removal.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iUrzicaiRLU&list=RDiUrzicaiRLU" frameborder="0" allowfullscreen></iframe>
+
 ## Features
 
 - Image upload via drag-and-drop or file selection
@@ -21,7 +23,6 @@ Web application built with Next.js and TypeScript that allows users to upload, e
 - Radix UI
 - Shadcn UI
 - Fal AI API for image processing
-
 
 ## Project Structure
 
