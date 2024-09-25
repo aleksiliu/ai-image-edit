@@ -14,6 +14,7 @@ interface ImageUploadProps {
   isRemovingBackground: boolean
   isUpscaled: boolean
   isBackgroundRemoved: boolean
+  errorMessage: string | null
 }
 
 export function ImageUpload({ 
@@ -23,7 +24,8 @@ export function ImageUpload({
   isUpscaling, 
   isRemovingBackground, 
   isUpscaled, 
-  isBackgroundRemoved 
+  isBackgroundRemoved,
+  errorMessage
 }: ImageUploadProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -89,6 +91,12 @@ export function ImageUpload({
     return (
       <div className="relative flex items-center justify-center min-h-screen bg-gray-900 px-4 sm:px-6 lg:px-8">
         <div className="relative w-full max-w-6xl aspect-[4/3]">
+        {errorMessage && (
+            <div className="my-8 flex items-center justify-center text-red-500">
+              <AlertCircle className="mr-2 h-5 w-5" />
+              <p>{errorMessage}</p>
+            </div>
+          )}
         <img 
               src={uploadedImage} 
               alt="Uploaded" 

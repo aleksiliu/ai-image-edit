@@ -12,6 +12,7 @@ export function useImageEditor() {
   const [isRemovingBackground, setIsRemovingBackground] = useState(false);
   const [isUpscaled, setIsUpscaled] = useState(false);
   const [isBackgroundRemoved, setIsBackgroundRemoved] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const savedEditedImage = localStorage.getItem('editedImage');
@@ -36,7 +37,7 @@ export function useImageEditor() {
       localStorage.setItem('uploadedImage', imageUrl);
       console.log("Image URL saved:", imageUrl);
     } catch (error) {
-      console.error("Error uploading image:", error);
+      setErrorMessage("Failed to upload image. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +55,7 @@ export function useImageEditor() {
       localStorage.setItem('uploadedImage', upscaledImageUrl);
       localStorage.setItem('editedImage', upscaledImageUrl);
     } catch (error) {
-      console.error("Error upscaling image:", error);
+      setErrorMessage("Failed to upscale image. Please try again.");
     } finally {
       setIsUpscaling(false);
     }
@@ -72,7 +73,7 @@ export function useImageEditor() {
       localStorage.setItem('uploadedImage', removedBgImageUrl);
       localStorage.setItem('editedImage', removedBgImageUrl);
     } catch (error) {
-      console.error("Error removing background:", error);
+      setErrorMessage("Failed to remove background. Please try again.");
     } finally {
       setIsRemovingBackground(false);
     }
@@ -86,7 +87,7 @@ export function useImageEditor() {
     localStorage.removeItem('editedImage');
     setIsUpscaled(false);
     setIsBackgroundRemoved(false);
-    console.log("Upload reset, localStorage cleared.");
+    setErrorMessage(null);
   };
 
   return {
@@ -102,5 +103,6 @@ export function useImageEditor() {
     resetUpload,
     isUpscaled,
     isBackgroundRemoved,
+    errorMessage,
   };
 }
